@@ -24,8 +24,9 @@ j = json.loads(out)
 #filter result for all version
 result = j["versions"]
 
-# use loop to extract all versions 
-
+# use loop to extract all versions
+# use find to exclude beta and rc versions
+# compare all versions with max_ver 
 for cur_ver in result: 
 	if (cur_ver.find(ex1) == -1 and cur_ver.find(ex2) == -1): #print "This is not RC or Beta ver", cur_ver #max_ver = max_ver
 		if parse_version(max_ver) < parse_version(cur_ver): 
