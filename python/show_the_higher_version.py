@@ -1,14 +1,21 @@
 #!/usr/bin/env python	
 
 #define variables
-link = ("https://releases.hashicorp.com/vault/index.json")
+link = ("https://releases.hashicorp.com")
+ext = ("/vault/index.json")
+url = (link + ext)
+max_ver = ("0.0.0")
+ex1 = ("rc1")
+ex2 = ("beta1")
+
+print url
 
 #load modules
 import urllib
 import json
 
 #read URL content
-out = urllib.urlopen(link).read()
+out = urllib.urlopen(url).read()
 
 #print out
 
@@ -18,10 +25,16 @@ j = json.loads(out)
 #filter result for all version
 result = j["versions"]
 
-print result
+#print result
 
-#use loop to extract download url of each provider 
+#use loop to extract all versions 
 #print 'The higher version is: '
 
-#for ver in result: print ver['version']
+for cur_ver in result: 
+	if (cur_ver.find(ex1) == -1 and cur_ver.find(ex2) == -1): #print "This is not RC or Beta ver", cur_ver #max_ver = max_ver
+		if max_ver < cur_ver: 
+				print "Current version", cur_ver, "/ Max version", max_ver  
+                                max_ver = cur_ver
+		else: print "This version", cur_ver, "is lower than", max_ver
+#print max_ver
 	
